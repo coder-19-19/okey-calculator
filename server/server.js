@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173",
+        origin: "http://45.94.4.182:3090",
         methods: ["GET", "POST"]
     }
 });
@@ -29,6 +29,6 @@ io.on("connection", (socket) => {
     });
 });
 
-server.listen(3000, () => {
-    console.log("Server 3000 portunda işləyir...");
+server.listen(3089, () => {
+    console.log("Server 3089 portunda işləyir...");
 });
