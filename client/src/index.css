@@ -1,0 +1,253 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(102, 126, 234, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+[buy-now] {
+  display: none !important;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s ease;
+}
+
+button, a {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Card hover effects */
+.ant-card {
+  transition: all 0.3s ease;
+}
+
+.ant-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Input focus effects */
+.ant-input:focus,
+.ant-input-focused {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Button primary effects */
+.ant-btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #653a8f 100%);
+}
+
+/* DataGrid improvements */
+.dx-datagrid {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dx-datagrid-headers {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.dx-header-row {
+  color: white !important;
+}
+
+.dx-header-row td {
+  color: white !important;
+  font-weight: 600;
+}
+
+/* Mobil için DataGrid ayarları */
+@media (max-width: 768px) {
+  .dx-datagrid {
+    font-size: 12px;
+  }
+
+  .dx-datagrid-headers {
+    font-size: 11px;
+  }
+
+  .dx-header-row td,
+  .dx-datagrid-headers .dx-header-row td {
+    padding: 8px 4px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dx-row td {
+    padding: 8px 4px !important;
+    font-size: 11px;
+  }
+
+  .dx-scrollable-scrollbar {
+    display: block !important;
+  }
+
+  .dx-scrollable-scroll {
+    display: block !important;
+  }
+
+  /* Mobilde grid container */
+  .ant-card-body {
+    padding: 8px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Grid wrapper için */
+  .responsive-datagrid {
+    min-width: 100%;
+    width: max-content;
+  }
+  
+  .responsive-datagrid .dx-datagrid-headers {
+    min-width: 100%;
+  }
+
+  /* Horizontal scroll indicator */
+  .dx-datagrid .dx-scrollable-container {
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    min-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
+  }
+
+  /* Touch-friendly scrollbars */
+  .dx-scrollable-scrollbar.dx-scrollbar-horizontal {
+    height: 12px !important;
+  }
+
+  .dx-scrollable-scrollbar.dx-scrollbar-vertical {
+    width: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .dx-datagrid {
+    font-size: 10px;
+  }
+
+  .dx-header-row td,
+  .dx-datagrid-headers .dx-header-row td {
+    padding: 6px 2px !important;
+    font-size: 10px;
+  }
+
+  .dx-row td {
+    padding: 6px 2px !important;
+    font-size: 10px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 16px rgba(82, 196, 26, 0.3), 0 0 0 0 rgba(82, 196, 26, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(82, 196, 26, 0.4), 0 0 0 4px rgba(82, 196, 26, 0.1);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
