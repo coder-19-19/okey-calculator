@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/charts": "^2.6.6",
     "@ant-design/icons": "^5.4.0",
     "antd": "^5.21.0",
     "dayjs": "^1.11.13",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "recharts": "^3.3.0",
     "socket.io-client": "^4.7.5",
     "uuid": "^10.0.0"
   },

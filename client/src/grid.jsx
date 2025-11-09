@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {Button, Card, Space, Statistic, Row, Col, Typography, Badge, Divider, Table, Modal, Form, InputNumber, Input} from "antd";
 import { SendOutlined, TrophyOutlined, TeamOutlined, SwapOutlined, EditOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const { Title } = Typography;
 
@@ -408,6 +409,43 @@ function Grid({ socket, room, name }) {
               </Card>
             </Col>
           </Row>
+
+          <Divider style={{ margin: '24px 0' }} />
+
+          <Card
+            style={{
+              borderRadius: '12px',
+              background: 'rgba(255, 255, 255, 0.9)',
+            }}
+          >
+            <Title level={5} style={{ textAlign: 'center', marginBottom: '20px', color: '#1a1a1a' }}>
+              Komandaların Xal Paylanması
+            </Title>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={[
+                    { name: '1. Komanda', value: firstTeamPoint() },
+                    { name: '2. Komanda', value: secondTeamPoint() },
+                  ]}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  <Cell fill="#667eea" />
+                  <Cell fill="#52c41a" />
+                </Pie>
+                <Tooltip 
+                  formatter={(value) => [`${value} xal`, 'Xal']}
+                />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </Card>
         </Space>
       </Card>
 
