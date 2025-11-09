@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import {Button, Card, Space, Statistic, Row, Col, Typography, Badge, Divider, Table, Modal, Form, InputNumber} from "antd";
+import {Button, Card, Space, Statistic, Row, Col, Typography, Badge, Divider, Table, Modal, Form, InputNumber, Input} from "antd";
 import { SendOutlined, TrophyOutlined, TeamOutlined, SwapOutlined, EditOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 
@@ -80,6 +80,39 @@ function Grid({ socket, room, name }) {
     ...options
   });
 
+  const evaluateExpression = (value) => {
+    if (!value || value === '') return 0;
+    
+    if (typeof value === 'number') return value;
+    
+    const str = String(value).trim();
+    
+    if (!str) return 0;
+    
+    if (/^-?\d+\.?\d*$/.test(str)) {
+      return parseFloat(str) || 0;
+    }
+    
+    try {
+      const sanitized = str.replace(/[^0-9+\-*/().\s]/g, '');
+      if (!sanitized) return 0;
+      
+      const result = eval(sanitized);
+      return typeof result === 'number' ? result : parseFloat(result) || 0;
+    } catch (error) {
+      console.error('Expression evaluation error:', error);
+      return 0;
+    }
+  };
+
+  const handleInputBlur = (fieldName, value) => {
+    const stringValue = value !== null && value !== undefined ? String(value).trim() : '';
+    if (stringValue) {
+      const evaluatedValue = evaluateExpression(stringValue);
+      form.setFieldsValue({ [fieldName]: evaluatedValue });
+    }
+  };
+
   const handleEdit = (record) => {
     setEditingRecord(record);
     form.setFieldsValue({
@@ -98,14 +131,14 @@ function Grid({ socket, room, name }) {
   const handleSave = () => {
     form.validateFields().then((values) => {
       const cleanedValues = {
-        user1Point: values.user1Point ?? 0,
-        user1Punish: values.user1Punish ?? 0,
-        user2Point: values.user2Point ?? 0,
-        user2Punish: values.user2Punish ?? 0,
-        user3Point: values.user3Point ?? 0,
-        user3Punish: values.user3Punish ?? 0,
-        user4Point: values.user4Point ?? 0,
-        user4Punish: values.user4Punish ?? 0,
+        user1Point: evaluateExpression(values.user1Point),
+        user1Punish: evaluateExpression(values.user1Punish),
+        user2Point: evaluateExpression(values.user2Point),
+        user2Punish: evaluateExpression(values.user2Punish),
+        user3Point: evaluateExpression(values.user3Point),
+        user3Punish: evaluateExpression(values.user3Punish),
+        user4Point: evaluateExpression(values.user4Point),
+        user4Punish: evaluateExpression(values.user4Punish),
       };
 
       const point1 = cleanedValues.user1Point + cleanedValues.user2Point;
@@ -431,10 +464,13 @@ function Grid({ socket, room, name }) {
                   name="user1Point"
                   rules={[{ required: false, message: 'Xalı daxil edin' }]}
                 >
-                  <InputNumber
+                  <Input
                     style={{ width: '100%' }}
-                    placeholder="Xal"
-                    min={0}
+                    placeholder="Xal (məs: 10+5, 2*3)"
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      handleInputBlur('user1Point', value);
+                    }}
                   />
                 </Form.Item>
               </Col>
@@ -444,10 +480,13 @@ function Grid({ socket, room, name }) {
                   name="user1Punish"
                   rules={[{ required: false, message: 'Cəriməni daxil edin' }]}
                 >
-                  <InputNumber
+                  <Input
                     style={{ width: '100%' }}
-                    placeholder="Cərimə"
-                    min={0}
+                    placeholder="Cərimə (məs: 10+5, 2*3)"
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      handleInputBlur('user1Punish', value);
+                    }}
                   />
                 </Form.Item>
               </Col>
@@ -457,10 +496,13 @@ function Grid({ socket, room, name }) {
                   name="user2Point"
                   rules={[{ required: false, message: 'Xalı daxil edin' }]}
                 >
-                  <InputNumber
+                  <Input
                     style={{ width: '100%' }}
-                    placeholder="Xal"
-                    min={0}
+                    placeholder="Xal (məs: 10+5, 2*3)"
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      handleInputBlur('user2Point', value);
+                    }}
                   />
                 </Form.Item>
               </Col>
@@ -470,10 +512,13 @@ function Grid({ socket, room, name }) {
                   name="user2Punish"
                   rules={[{ required: false, message: 'Cəriməni daxil edin' }]}
                 >
-                  <InputNumber
+                  <Input
                     style={{ width: '100%' }}
-                    placeholder="Cərimə"
-                    min={0}
+                    placeholder="Cərimə (məs: 10+5, 2*3)"
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      handleInputBlur('user2Punish', value);
+                    }}
                   />
                 </Form.Item>
               </Col>
@@ -495,10 +540,13 @@ function Grid({ socket, room, name }) {
                   name="user3Point"
                   rules={[{ required: false, message: 'Xalı daxil edin' }]}
                 >
-                  <InputNumber
+                  <Input
                     style={{ width: '100%' }}
-                    placeholder="Xal"
-                    min={0}
+                    placeholder="Xal (məs: 10+5, 2*3)"
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      handleInputBlur('user3Point', value);
+                    }}
                   />
                 </Form.Item>
               </Col>
@@ -508,10 +556,13 @@ function Grid({ socket, room, name }) {
                   name="user3Punish"
                   rules={[{ required: false, message: 'Cəriməni daxil edin' }]}
                 >
-                  <InputNumber
+                  <Input
                     style={{ width: '100%' }}
-                    placeholder="Cərimə"
-                    min={0}
+                    placeholder="Cərimə (məs: 10+5, 2*3)"
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      handleInputBlur('user3Punish', value);
+                    }}
                   />
                 </Form.Item>
               </Col>
@@ -521,10 +572,13 @@ function Grid({ socket, room, name }) {
                   name="user4Point"
                   rules={[{ required: false, message: 'Xalı daxil edin' }]}
                 >
-                  <InputNumber
+                  <Input
                     style={{ width: '100%' }}
-                    placeholder="Xal"
-                    min={0}
+                    placeholder="Xal (məs: 10+5, 2*3)"
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      handleInputBlur('user4Point', value);
+                    }}
                   />
                 </Form.Item>
               </Col>
@@ -534,10 +588,13 @@ function Grid({ socket, room, name }) {
                   name="user4Punish"
                   rules={[{ required: false, message: 'Cəriməni daxil edin' }]}
                 >
-                  <InputNumber
+                  <Input
                     style={{ width: '100%' }}
-                    placeholder="Cərimə"
-                    min={0}
+                    placeholder="Cərimə (məs: 10+5, 2*3)"
+                    onBlur={(e) => {
+                      const value = e.target.value;
+                      handleInputBlur('user4Punish', value);
+                    }}
                   />
                 </Form.Item>
               </Col>
